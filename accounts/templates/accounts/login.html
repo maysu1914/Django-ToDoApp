@@ -1,0 +1,59 @@
+{% extends 'accounts/main.html' %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="row">
+        <div class="col">
+            <div class="card text-center mt-5">
+                <div class="card-header">
+                    TODOAPPLOGO
+                </div>
+                <div class="card-body">
+                    {% for message in messages %}
+                    <div class="alert alert-info alert-dismissible fade show m-2 rounded" role="alert">
+                        {{ message }}
+                        <button type="button" class="close h-100 d-flex align-items-center"
+                                data-dismiss="alert" aria-label="Close">
+                            <i class="fas fa-times fa-sm" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    {% endfor %}
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <span>Username</span>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user" style="width:16px;"></i>
+                                    </span>
+                                </div>
+                                <input type="text" name="username" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span>Password</span>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-key"></i>
+                                    </span>
+                                </div>
+                                <input type="password" name="password" class="form-control" required>
+                            </div>
+                        </div>
+                        <!--                        <div class="form-check">-->
+                        <!--                            <input type="checkbox" class="form-check-input">-->
+                        <!--                            <label class="form-check-label">Remember Me</label>-->
+                        <!--                        </div>-->
+                        <button type="submit" class="btn btn-primary w-50 rounded-pill">Login</button>
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+                    Don't have an account? <a class="text-decoration-none" href="{% url 'register' %}">Register</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

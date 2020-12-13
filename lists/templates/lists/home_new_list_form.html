@@ -1,0 +1,14 @@
+<form method="post" action="{% url 'create_list' %}">
+    {% csrf_token %}
+    <div class="form-group bg-light rounded p-2">
+        <div class="input-group">
+            <input type="text" name="name" class="form-control"
+                   placeholder="New list name" required>
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-light border">
+                    <i class="far fa-plus-square fa-lg text-dark"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

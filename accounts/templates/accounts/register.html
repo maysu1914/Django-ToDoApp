@@ -1,0 +1,91 @@
+{% extends 'accounts/main.html' %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center mb-auto">
+    <div class="row">
+        <div class="col">
+            <div class="card text-center mt-5">
+                <div class="card-header">
+                    TODOAPPLOGO
+                </div>
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show m-2 rounded" role="alert">
+                    {{ message }}
+                    <button type="button" class="close h-100 d-flex align-items-center"
+                            data-dismiss="alert" aria-label="Close">
+                        <i class="fas fa-times fa-sm" aria-hidden="true"></i>
+                    </button>
+                </div>
+                {% endfor %}
+                {% else %}
+                {% for field in form %}
+                {% for error in field.errors %}
+                <div class="alert alert-danger alert-dismissible fade show m-2 rounded" role="alert">
+                    {{ error }}
+                    <button type="button" class="close h-100 d-flex align-items-center"
+                            data-dismiss="alert" aria-label="Close">
+                        <i class="fas fa-times fa-sm" aria-hidden="true"></i>
+                    </button>
+                </div>
+                {% endfor %}
+                {% endfor %}
+                {% endif %}
+                <div class="card-body">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <span>Username</span>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user" style="width:16px;"></i>
+                                    </span>
+                                </div>
+                                {{ form.username }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span>E-mail</span>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                </div>
+                                {{ form.email }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span>Password</span>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-key"></i>
+                                    </span>
+                                </div>
+                                {{ form.password1 }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span>Confirm Password</span>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-key"></i>
+                                    </span>
+                                </div>
+                                {{ form.password2 }}
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success w-50 rounded-pill">Register</button>
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+                    Already have an account? <a class="text-decoration-none" href="{% url 'login' %}">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

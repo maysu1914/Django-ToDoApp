@@ -1,0 +1,11 @@
+body {
+  /* The image used */
+  background-image: url("../images/accounts_background_3_720.jpg");
+
+  /* Repeat the image nicely */
+  background-repeat: repeat;
+}
+
+body, wrapper {
+   min-height:100vh;
+}

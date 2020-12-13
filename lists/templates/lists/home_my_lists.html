@@ -1,0 +1,87 @@
+{% if lists %}
+{% for list in lists %}
+<div class="card my-1 to-do-list" data-list-id="{{list.id}}">
+    <div class="card-header row m-0 d-flex align-items-center border py-2">
+        <a href="{% url 'delete_list' list.id %}" class="btn text-danger my-0 py-0 p-2 pr-3" data-toggle="tooltip" data-placement="right"
+           title="Delete this list"><i class="fas fa-trash"></i></a>
+        <span>{{list.name}}</span>
+        <div class="ml-auto">
+            <i class="fas fa-chevron-down text-secondary" data-toggle="collapse"
+               data-list-id="{{list.id}}" data-target="#list-{{list.id}}"
+               aria-expanded="true" aria-controls="list-{{list.id}}"></i>
+        </div>
+    </div>
+    <div id="list-{{list.id}}" class="collapse" aria-labelledby="heading-new-list">
+        <div class="card-body border border-top-0 p-1">
+            <div class="row m-0 text-center">
+                <div class="col px-1">
+                    <p class="m-0">Filters</p>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-sm btn-light border active d-flex align-items-center">
+                            <input class="statusing" type="radio" name="status" value="All" hidden checked>All
+                        </label>
+                        <label class="btn btn-sm btn-light border d-flex align-items-center">
+                            <input class="statusing" type="radio" name="status" value="Completed" hidden>Completed
+                        </label>
+                        <label class="btn btn-sm btn-light border">
+                            <input class="statusing" type="radio" name="status" value="Not Completed" hidden>Not
+                            Completed
+                        </label>
+                        <label class="btn btn-sm btn-light border">
+                            <input class="statusing" type="radio" name="status" value="Expired" hidden>Expired
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row m-0 text-center">
+                <div class="col">
+                    <p class="m-0">Sorting</p>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-sm btn-light border d-flex align-items-center">
+                            <input class="sorting" type="radio" name="sort" value="deadline" hidden checked>Deadline
+                        </label>
+                        <label class="btn btn-sm btn-light border active d-flex align-items-center">
+                            <input class="sorting" type="radio" name="sort" value="name" hidden>Name
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row m-0 justify-content-center">
+                <button data-form="{% url 'create_item' list.id %}" class="btn btn-success w-100 add-new-item-button"
+                        data-toggle="modal"
+                        data-target="#add-new-item-modal"><i
+                        class="fas fa-plus"></i><span class="ml-2 font-weight-bold">Add new item</span></button>
+            </div>
+            {% include 'lists/home_my_lists_my_items.html' %}
+        </div>
+    </div>
+</div>
+{% endfor %}
+<div id="add-new-item-modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add new item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="add-new-item-form" method="post" action="">
+                {% csrf_token %}
+                <div class="modal-body">
+                    {{ new_item_form.as_p }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="submit-button" type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="text-center">
+    <span class="text-center text-secondary">You don't have any lists yet.</span>
+</div>
+{% endif %}
