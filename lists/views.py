@@ -113,4 +113,5 @@ def approve_item(request, item_id):
 @login_required(login_url='login')
 def update_status(request):
     today = datetime.date.today()
-    result = Item.objects.filter(~Q(status="Completed"), deadline__lte=today).update(status='Expired')
+    Item.objects.filter(~Q(status="Completed"), deadline__lte=today).update(status='Expired')
+    Item.objects.filter(status="Expired", deadline__gt=today).update(status='Not Completed')
