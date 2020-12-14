@@ -2,7 +2,8 @@
 It is a basic To-Do App project with basic Django skills.
 
 ## Quick Start
-- Open your terminal in base folder and type "python manage.py makemigrations"
+- Open your terminal in base folder and install the requirements by typing "pip install -r requirements.txt"
+- Type "python manage.py makemigrations"
 - Type "python manage.py migrate"
 - Type "python manage.py createsuperuser" and fill in the blanks.
 - You can check the database by login to localhost:8000/admin with your superuser infos.
