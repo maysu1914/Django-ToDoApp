@@ -1,5 +1,5 @@
 # Django-ToDoApp
-It is a basic To-Do App project with basic Django skills.
+This is a basic To-Do List project with basic Django skills.
 
 ## Quick Start
 - Open your terminal in base folder and install the requirements by typing "pip install -r requirements.txt"
@@ -8,7 +8,7 @@ It is a basic To-Do App project with basic Django skills.
 - Type "python manage.py createsuperuser" and fill in the blanks.
 - You can check the database by login to localhost:8000/admin with your superuser infos.
 - Start the project by typing "python manage.py runserver".
-- You ready to go.
+- Enter 'localhost:8000' and you ready to go.
 
 ### Secret Key
 You can generate your own secret key by doing this and change the secret key value in settings.py.
