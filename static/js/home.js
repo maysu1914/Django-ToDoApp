@@ -42,10 +42,11 @@ $( document ).ready(function() {
             fields = new_data_row.getElementsByTagName('TD');
             fields[0].innerHTML = data.fields.name;
             fields[1].innerHTML = data.fields.status;
-            fields[2].innerHTML = data.fields.deadline;
-            fields[3].innerHTML = data.fields.description;
-            fields[4].getElementsByTagName('A')[0].setAttribute("data-item-id", data.pk.toString());
-            fields[4].getElementsByTagName('A')[1].setAttribute("data-item-id", data.pk.toString());
+            fields[2].innerHTML = data.fields.created;
+            fields[3].innerHTML = data.fields.deadline;
+            fields[4].innerHTML = data.fields.description;
+            fields[5].getElementsByTagName('A')[0].setAttribute("data-item-id", data.pk.toString());
+            fields[5].getElementsByTagName('A')[1].setAttribute("data-item-id", data.pk.toString());
             target_body.appendChild(new_data_row);
         }
     }

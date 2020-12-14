@@ -38,6 +38,7 @@ class Item(models.Model):
     description = models.CharField(max_length=200, null=True, blank=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
     deadline = models.DateField(null=True)
+    created = models.DateField(auto_now_add=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 

@@ -49,7 +49,7 @@ def create_item(request, list_id):
 def get_items(request, list_id):
     update_status(request)
     if request.method == 'GET':
-        queries = {'status': ['Not Completed', 'Completed', 'Expired'], 'sort': ['deadline', 'name']}
+        queries = {'status': ['Not Completed', 'Completed', 'Expired'], 'sort': ['deadline', 'name', 'created']}
         response_data = {'result': 'error', 'message': ''}
         user_check = List.objects.filter(user_id=request.user, id=list_id)
         if user_check:
