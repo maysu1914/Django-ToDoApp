@@ -1,5 +1,5 @@
 # Django-ToDoApp
-It is a basic To-Do App project with basic Django skills.
+It is a basic To-Do List project with basic Django skills.
 
 ## Quick Start
 - Open your terminal in base folder and install the requirements by typing "pip install -r requirements.txt"
