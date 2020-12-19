@@ -12,6 +12,8 @@ import json
 from lists.forms import CreateListForm, CreateItemForm
 from lists.models import List, Item
 
+today = datetime.date.today()
+
 
 @login_required(login_url='login')
 def home(request):
@@ -40,8 +42,25 @@ def create_item(request, list_id):
         user_check = List.objects.filter(user_id=request.user, id=list_id)
         if form.is_valid() and user_check:
             stock = form.save(commit=False)
+            if stock.status == 'Not Completed' and stock.deadline <= today:
+                stock.status = 'Expired'
+            elif stock.status == 'Expired' and stock.deadline > today:
+                stock.status = 'Not Completed'
+            else:
+                pass
             stock.list_id = List.objects.get(id=list_id)
             stock.save()
+        else:
+            errors_data = {}
+            for field in form:
+                errors = []
+                for error in field.errors:
+                    errors.append(error)
+                errors_data[field.name] = errors
+            response_data = {'errors': errors_data}
+            # print(response_data)
+
+            return JsonResponse(response_data, status=500)
     return redirect('home')
 
 
@@ -112,6 +131,5 @@ def approve_item(request, item_id):
 
 @login_required(login_url='login')
 def update_status(request):
-    today = datetime.date.today()
     Item.objects.filter(~Q(status="Completed"), deadline__lte=today).update(status='Expired')
-    Item.objects.filter(status="Expired", deadline__gt=today).update(status='Not Completed')
+    # Item.objects.filter(status="Expired", deadline__gt=today).update(status='Not Completed')

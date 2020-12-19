@@ -2,7 +2,8 @@
 {% for list in lists %}
 <div class="card my-1 to-do-list" data-list-id="{{list.id}}">
     <div class="card-header row m-0 d-flex align-items-center border py-2">
-        <a href="{% url 'delete_list' list.id %}" class="btn text-danger my-0 py-0 p-2 pr-3" data-toggle="tooltip" data-placement="right"
+        <a href="{% url 'delete_list' list.id %}" class="btn text-danger my-0 py-0 p-2 pr-3" data-toggle="tooltip"
+           data-placement="right"
            title="Delete this list"><i class="fas fa-trash"></i></a>
         <span>{{list.name}}</span>
         <div class="ml-auto">
@@ -73,6 +74,12 @@
             <form id="add-new-item-form" method="post" action="">
                 {% csrf_token %}
                 <div class="modal-body">
+                    <div id="sample-error" class="alert alert-danger alert-dismissible fade show m-2 rounded" role="alert" hidden>
+                        <button type="button" class="close h-100 d-flex align-items-center"
+                                data-dismiss="alert" aria-label="Close">
+                            <i class="fas fa-times fa-sm" aria-hidden="true"></i>
+                        </button>
+                    </div>
                     {{ new_item_form.as_p }}
                 </div>
                 <div class="modal-footer">

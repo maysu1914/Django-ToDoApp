@@ -103,6 +103,21 @@ $( document ).ready(function() {
                 button.innerHTML = default_text;
                 $('#add-new-item-modal').modal('hide');
                 getItemsByListId( list_id );
+              },
+              error: function($xhr,textStatus,errorThrown){
+                button.innerHTML = default_text;
+                fields = $xhr.responseJSON;
+                for(field in fields.errors){
+                    error_place = document.getElementById('id_'+field);
+                    form_body = error_place.parentNode;
+                    for(let error of fields.errors[field]){
+                        sample_error = document.getElementById('sample-error').cloneNode(true);
+                        sample_error.hidden = false;
+                        sample_error.removeAttribute('id');
+                        sample_error.innerHTML = error + sample_error.innerHTML;
+                        form_body.innerHTML= sample_error.outerHTML + form_body.innerHTML;
+                    }
+                }
               }
             });
         e.preventDefault();
