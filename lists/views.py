@@ -66,19 +66,21 @@ def create_item(request, list_id):
 
 @login_required(login_url='login')
 def get_items(request, list_id):
+    queries = {'status': ['Not Completed', 'Completed', 'Expired']}
+    orders = {'sort': ['deadline', 'name', 'created']}
+    response_data = {'result': 'error', 'message': ''}
     update_status(request)
     if request.method == 'GET':
-        queries = {'status': ['Not Completed', 'Completed', 'Expired'], 'sort': ['deadline', 'name', 'created']}
-        response_data = {'result': 'error', 'message': ''}
         user_check = List.objects.filter(user_id=request.user, id=list_id)
         if user_check:
-            result = Item.objects.filter(list_id=list_id);
+            filters = {}
+            sorting = []
             for query in request.GET:
-                if request.GET[query] in queries['status']:
-                    result = result.filter(status=request.GET[query])
-                if request.GET[query] in queries['sort']:
-                    result = result.order_by(request.GET[query])
-
+                if query in queries and request.GET[query] in queries[query]:
+                    filters[query] = request.GET[query]
+                elif query in orders and request.GET[query] in orders[query]:
+                    sorting.append(request.GET[query])
+            result = Item.objects.filter(list_id=list_id, **filters).order_by(*sorting)
             response_data['result'] = serializers.serialize('json', result)
             response_data['message'] = 'Success'
             return JsonResponse(response_data)
