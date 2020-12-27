@@ -42,9 +42,9 @@ def create_item(request, list_id):
         user_check = List.objects.filter(user_id=request.user, id=list_id)
         if form.is_valid() and user_check:
             stock = form.save(commit=False)
-            if stock.status == 'Not Completed' and stock.deadline <= today:
+            if stock.status == 'Not Completed' and stock.deadline < today:
                 stock.status = 'Expired'
-            elif stock.status == 'Expired' and stock.deadline > today:
+            elif stock.status == 'Expired' and stock.deadline >= today:
                 stock.status = 'Not Completed'
             else:
                 pass
@@ -133,5 +133,5 @@ def approve_item(request, item_id):
 
 @login_required(login_url='login')
 def update_status(request):
-    Item.objects.filter(~Q(status="Completed"), deadline__lte=today).update(status='Expired')
+    Item.objects.filter(status="Not Completed", deadline__lt=today).update(status='Expired')
     # Item.objects.filter(status="Expired", deadline__gt=today).update(status='Not Completed')
